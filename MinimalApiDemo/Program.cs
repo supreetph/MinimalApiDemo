@@ -23,7 +23,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/JobCategory", (IRepository repo) => { return repo.GetJobCategories(); });
+app.MapGet("/api/JobCategory", async (IRepository repo) => { return Results.Ok(await repo.GetJobCategories()); });
+app.MapPost("api/JobCategory", async (IRepository repo, JobCategory category) =>
+{
+
+   var results= await repo.PostJobCategory(category);
+    return category;
+
+});
 
 app.Run();
 

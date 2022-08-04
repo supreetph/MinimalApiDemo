@@ -4,6 +4,7 @@ namespace MinimalApiDemo.Repositories
 {
     public interface IRepository
     {
-        IEnumerable<JobCategory> GetJobCategories();
+       Task< IEnumerable<JobCategory>> GetJobCategories();
+        Task<JobCategory>PostJobCategory(JobCategory jobCategory);
     }
 }

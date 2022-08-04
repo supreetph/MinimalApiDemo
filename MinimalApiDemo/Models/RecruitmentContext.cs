@@ -57,15 +57,10 @@ namespace MinimalApiDemo.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.JobCategory)
-                    .WithMany(p => p.Jobs)
-                    .HasForeignKey(d => d.JobCategoryId)
-                    .HasConstraintName("FK_Jobs_JobCategory");
+                entity.HasOne(d => d.JobCategory);
+                    
+                    
 
-                entity.HasOne(d => d.JobType)
-                    .WithMany(p => p.Jobs)
-                    .HasForeignKey(d => d.JobTypeId)
-                    .HasConstraintName("FK_Jobs_JobType");
             });
 
             modelBuilder.Entity<JobCategory>(entity =>

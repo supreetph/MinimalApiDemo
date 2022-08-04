@@ -1,4 +1,5 @@
-﻿using MinimalApiDemo.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MinimalApiDemo.Models;
 
 namespace MinimalApiDemo.Repositories
 {
@@ -11,9 +12,16 @@ namespace MinimalApiDemo.Repositories
             _context = context;
         }
 
-        public IEnumerable<JobCategory> GetJobCategories()
+        public async Task<IEnumerable<JobCategory>> GetJobCategories()
         {
-            return _context.JobCategories.ToList();
+            return await _context.JobCategories.ToListAsync();
+        }
+
+        public async Task<JobCategory> PostJobCategory(JobCategory jobCategory)
+        {
+          await _context.JobCategories.AddAsync(jobCategory);
+            _context.SaveChanges();
+            return jobCategory;
         }
     }
 }
