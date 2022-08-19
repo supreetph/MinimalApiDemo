@@ -1,0 +1,43 @@
+﻿@page "/jobs"
+@inject HttpClient _httpClient
+@using Blazor.Jobs.Client.Shared
+@using Blazor.Jobs.Client.Data
+<h3>JobCategory</h3>
+
+
+<table class="table-bordered">
+            <thead>
+                <tr>
+                    <th width = "30%">JobCategoryId</th>
+                    <th width = "20%">JobCategoryDescription</th>
+                  
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in jobCats)
+                {
+                    <tr>
+                        <td>
+                            @p.JobCategoryId 
+                        </td>
+                        <td>
+                            @p.JobCategoryDescription 
+                        </td>
+                    </tr>
+                }
+            </tbody>
+</table>
+@code {
+
+
+    private  List<JobCategory> jobCats = new();
+
+    protected override async Task OnInitializedAsync(){
+        var response = await _httpClient.GetAsync("https://localhost:44355/api/JobCategory");
+        response.EnsureSuccessStatusCode();
+        jobCats = await response.Content.ReadFromJsonAsync<List<JobCategory>>();
+        return jobCats;
+    }
+
+
+}
